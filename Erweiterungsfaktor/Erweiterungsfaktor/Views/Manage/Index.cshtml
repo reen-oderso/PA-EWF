@@ -1,0 +1,107 @@
+﻿@model Erweiterungsfaktor.Models.IndexViewModel
+@{
+    ViewBag.Title = "Konto bearbeiten";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Profil</h4>
+    <hr />
+
+    @using (Html.BeginForm("Index", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.DisplayFor(m => m.EmailConfirmed, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Speichern" class="btn btn-default" />
+            </div>
+        </div>
+    }
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.Label("Kennwort", new { @class = "col-md-2" })
+            <div class="col-md-10">
+                @if (Model.HasPassword)
+            {
+                    @Html.ActionLink("Kennwort ändern", "ChangePassword")
+                }
+                else
+                {
+                    @Html.ActionLink("Erstellen", "SetPassword")
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <h4>Verknüpfte Netzbetreiber</h4>
+    <hr />
+    @using (Html.BeginForm("CreateRelationship", "Manage", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(m=>m.BNR, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m=>m.BNR, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m=>m.BNR,"", new { @class = "text-danger" })
+                <p class="text-danger">@ViewBag.ErrorMessage</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Hinzufügen" class="btn btn-default" />
+            </div>
+        </div>
+    }
+    <table class="table">
+        <tr>
+            <th>
+                BNR
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Bestätigt
+            </th>
+            <th>
+            </th>
+        </tr>
+        @foreach (var item in Model.VerknüpfteNetzbetreiber)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.BNR)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Netzbetreiber.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Confirmed)
+                </td>
+                <td>
+                    @Html.ActionLink("Netzbetreiber-Details", "Details", new { id = item.BNR }) |
+                    @Html.ActionLink("Beziehung löschen", "DeleteRelationship", new { bnr = item.BNR })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

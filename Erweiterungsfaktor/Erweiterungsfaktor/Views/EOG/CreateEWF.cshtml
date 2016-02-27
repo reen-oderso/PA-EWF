@@ -1,0 +1,77 @@
+﻿@model EWFViewModel
+@using Erweiterungsfaktor.Models
+
+<h2>Erweiterungsfaktor</h2>
+<h4>@ViewBag.Title</h4>
+<hr />
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => Model.NetzId )
+    @Html.HiddenFor(model => Model.EOGId)
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <h4>Parameter der Versorgungsaufgabe</h4>
+        <div class="container ">
+            <table class="table table-responsive col-md-8">
+                <tr>
+                    <th class="col-md-1">              
+                    </th>
+                    <th class="col-md-1">
+                        Basisjahr
+                    </th>
+                    <th class="col-md-1">
+                        Antragszeitpunkt
+                    </th>
+                </tr>
+                <tr>
+                    <td class="col-md-1">@Html.DisplayNameFor(model => Model.VersorgteFlaeche0)</td>
+                    <td class="col-md-1 text-right ">@Html.DisplayFor(m => Model.VersorgteFlaeche0)</td>
+                    <td class="col-md-1 text-right ">@Html.EditorFor(m => Model.VersorgteFlaechet, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+                <tr>
+                    <td class="col-md-1">@Html.DisplayNameFor(model => Model.AnzahlAusspeisepunkte0)</td>
+                    <td class="col-md-1 text-right">@Html.DisplayFor(model => Model.AnzahlAusspeisepunkte0)</td>
+                    <td class="col-md-1 text-right">@Html.EditorFor(model => Model.AnzahlAusspeisepunktet, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+                <tr>
+                    <td class="col-md-1">@Html.DisplayNameFor(model => Model.Jahreshoechstlast0)</td>
+                    <td class="col-md-1 text-right">@Html.DisplayFor(model => Model.Jahreshoechstlast0)</td>
+                    <td class="col-md-1 text-right">@Html.EditorFor(model => Model.Jahreshoechstlastt, new { htmlAttributes = new { @class = "form-control" } })</td>
+                </tr>
+            </table>
+        </div>
+        <h4>Gewichtung der Netzebenen</h4>
+        <div class="container ">
+            <table class="table table-responsive  col-md-8">
+                <tr>
+                    <th class="col-md-1">Ebene</th>
+                    <th class="col-md-1">Restwerte</th>
+                    <th class="col-md-1">Gewicht</th>
+                </tr>
+                <tr>
+                    <td class="col-md-1">Netzanlagen</td>
+                    <td class="col-md-1 text-right">@Html.DisplayFor(model => Model.RestwertNetzanlagen)</td>
+                    <td class="col-md-1 text-right">@Html.DisplayFor(model => Model.GewichtungNetzanlagen)</td>
+                </tr>
+                <tr>
+                    <td class="col-md-1">Regelanlagen</td>
+                    <td class="col-md-1 text-right">@Html.DisplayFor(model => Model.RestwertRegelanlagen)</td>
+                    <td class="col-md-1 text-right">@Html.DisplayFor(model => Model.GewichtungRegelanlagen)</td>
+                </tr>
+            </table>
+        </div>
+        <div class="form-group">
+                <input type="submit" value="Erweiterungsfaktor berechnen" class="btn btn-default" />
+        </div>
+    </div>
+}
+<hr />
+<div>
+    @Html.ActionLink("Zurück", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

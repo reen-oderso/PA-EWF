@@ -1,0 +1,187 @@
+﻿@model Erweiterungsfaktor.Models.EOGViewModel 
+@using Erweiterungsfaktor.Models
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Netzbetreiber</h2>
+<h3>Details</h3>
+<hr />
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Netzbetreiber.FirstOrDefault ().Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Netzbetreiber.FirstOrDefault().Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Netzbetreiber.FirstOrDefault().Rechtsform)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Netzbetreiber.FirstOrDefault().Rechtsform)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Netzbetreiber.FirstOrDefault().StrasseHausNr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Netzbetreiber.FirstOrDefault().StrasseHausNr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Netzbetreiber.FirstOrDefault().PLZOrt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Netzbetreiber.FirstOrDefault().PLZOrt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Netzbetreiber.FirstOrDefault().VereinfachtesVerfahren)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Netzbetreiber.FirstOrDefault().VereinfachtesVerfahren)
+        </dd>
+
+        <dt></dt>
+        <dd>@Html.ActionLink("Bearbeiten", "Edit", new { id = Model.Netzbetreiber.FirstOrDefault().BNR })</dd>
+    </dl>
+</div>
+<div>
+    <h3>Netze</h3>
+    <hr />
+    
+    <h4>@String.Concat(Model.RegPNumber, ". Regulierungsperiode")</h4>
+    <p>vom @Html.DisplayFor(m => Model.RegPStart) bis @Html.DisplayFor(m => Model.RegPEnd)</p>
+    <p>
+        @if (Model.RegPNumber > 1)
+    {
+        @Html.ActionLink("<< ", "Details", new { id = Model.Netzbetreiber.FirstOrDefault().BNR, rpId = Model.RegPNumber - 1 });
+    }
+    @if (Model.RegPNumber < Model.RegPMax)
+    {
+        @Html.ActionLink(" >>", "Details", new { id = Model.Netzbetreiber.FirstOrDefault().BNR, rpId = Model.RegPNumber + 1 })
+    }
+    </p>
+    <p>@Html.ActionLink("Neues Netz", "CreateGrid", new { id = Model.Netzbetreiber.FirstOrDefault().BNR, rpId = Model.RegPNumber }) </p>
+
+    @foreach (Netz n in Model.Netzbetreiber.FirstOrDefault().Netze)
+    {
+    <h4>@String.Concat("Netznummer ", n.NetzNr, " - ", n.NetzName)</h4>
+    <p>
+        @Html.ActionLink("Bearbeiten", "EditGrid", new { id= n.NetzId }) |
+        @Html.ActionLink("Löschen", "DeleteGrid", new { id = n.NetzId })
+    </p>
+    <table class="table-responsive table-striped ">
+        <tr>
+            <th class="col-md-1 text-left">
+                @Html.DisplayNameFor(model => n.EOGs.FirstOrDefault().StartDate)
+            </th>
+            <th class="col-md-2 text-left">
+                @Html.DisplayNameFor(model => n.EOGs.FirstOrDefault().KAdnbt)
+            </th>
+            <th class="col-md-2 text-left">
+                @Html.DisplayNameFor(model => n.EOGs.FirstOrDefault().KAvnbt)
+            </th>
+            <th class="col-md-2 text-left">
+                @Html.DisplayNameFor(model => n.EOGs.FirstOrDefault().KAbt)
+            </th>
+            <th class="col-md-1 text-left">
+                @Html.DisplayNameFor(model => n.EOGs.FirstOrDefault().EFt)
+            </th>
+            <th class="col-md-2 text-left">
+                @Html.DisplayNameFor(model => n.EOGs.FirstOrDefault().EOGSumme)
+            </th>
+            <th class="col-md-2 text-left">
+
+            </th>
+        </tr>
+        @foreach (EOG eog in n.EOGs)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => eog.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => eog.KAdnbt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => eog.KAvnbt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => eog.KAbt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => eog.EFt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => eog.EOGSumme)
+                </td>
+
+            </tr>
+        }
+    </table>
+    }
+</div>
+<div>
+    <h3>Verknüpfte Nutzer</h3>
+    @Html.ActionLink("Neue Verknüpfung", "CreateRelationship", new { bnr = Model.Netzbetreiber.FirstOrDefault().BNR, returnURL = Request.Url.AbsoluteUri })
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.Netzbetreiber.FirstOrDefault().UserRelationships.First().User.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.Netzbetreiber.FirstOrDefault().UserRelationships.First().User.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.Netzbetreiber.FirstOrDefault().UserRelationships.First().Confirmed)
+            </th>
+            <th>
+            </th>
+        </tr>
+        @foreach (var item in Model.Netzbetreiber.FirstOrDefault().UserRelationships)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.User.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Confirmed)
+                </td>
+                <td>
+                    @Html.ActionLink("Nutzer-Details", "Details", new { controller = "User", id = item.Id, returnURL = Request.Url.AbsoluteUri }) |
+                    @if (item.Confirmed == true)
+                    {
+                        @Html.ActionLink("Widerrufen", "ChangeRelationship", "Netzbetreiber", new { id = item.Id, bnr = item.Netzbetreiber.BNR, returnURL = Request.Url.AbsoluteUri }, null)
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Bestätigen", "ChangeRelationship", "Netzbetreiber", new { id = item.Id, bnr = item.Netzbetreiber.BNR, returnURL = Request.Url.AbsoluteUri }, null)
+                    } |
+                    @Html.ActionLink("Beziehung löschen", "DeleteRelationship", new { id = item.Id, bnr = item.Netzbetreiber.BNR, returnURL = Request.Url.AbsoluteUri }, null)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<hr />
+<p>
+    @if (ViewBag.returnURL == null)
+    {
+        @Html.ActionLink("Zurück", "Index")
+    }
+    else
+    {
+        <a href="@ViewBag.returnURL">Zurück</a>
+    }
+</p>

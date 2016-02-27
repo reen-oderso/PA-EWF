@@ -1,0 +1,137 @@
+﻿@model Erweiterungsfaktor.Models.GridViewModel  
+
+@{
+    ViewBag.Title = "Bearbeiten";
+}
+
+<h2>Netz</h2>
+<h4>Bearbeiten</h4>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">  
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.NetzId)  
+        <div class="form-group">
+            @Html.LabelFor(model => model.NetzNr, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NetzNr, new { htmlAttributes = new { @class = "form-control"} })
+                @Html.ValidationMessageFor(model => model.NetzNr, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NetzName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NetzName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NetzName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <h4>Kosten- und EOG-Daten</h4>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Netzkosten, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Netzkosten, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Netzkosten, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.KAdnb, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.KAdnb, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.KAdnb, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Effizienzwert, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Effizienzwert, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Effizienzwert, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Verteilungsfaktor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Verteilungsfaktor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Verteilungsfaktor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <h4>Basisjahr</h4>
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <!--Die Formatierung des Datumswertes für den HTML5-Input funktioniert mit dem EditorFor-Helper nicht, deshalb wird das Input-Element manuell eingefügt.-->
+                <input class="form-control text-box single-line" data-val="true" data-val-date="Basisjahr Beginn muss ein Datum sein." id="StartDate" name="StartDate" type="date" value=@Model.StartDate.GetValueOrDefault().ToString("yyyy-MM-dd")>
+                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <!--Die Formatierung des Datumswertes für den HTML5-Input funktioniert mit dem EditorFor-Helper nicht, deshalb wird das Input-Element manuell eingefügt.-->
+                <input class="form-control text-box single-line" data-val="true" data-val-date="Basisjahr Ende muss ein Datum sein." id="EndDate" name="EndDate" type="date" value=@Model.EndDate.GetValueOrDefault().ToString("yyyy-MM-dd")>
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <h4>Restwerte des Anlagevermögens</h4>
+        <div class="form-group">
+            @Html.LabelFor(model => model.RestwertNetzanlagen, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RestwertNetzanlagen, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RestwertNetzanlagen, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RestwertRegelanlagen, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RestwertRegelanlagen, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RestwertRegelanlagen, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <h4>Parameter</h4>
+        <div class="form-group">
+            @Html.LabelFor(model => model.VersorgteFlaeche, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VersorgteFlaeche, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.VersorgteFlaeche, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AnzahlAusspeisepunkte, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AnzahlAusspeisepunkte, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AnzahlAusspeisepunkte, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Jahreshoechstlast, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Jahreshoechstlast, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Jahreshoechstlast, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Speichern" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<hr />
+<div>  
+        @Html.ActionLink("Zurück", "Details", new { Id = Model.BNR })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

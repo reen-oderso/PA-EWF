@@ -1,0 +1,62 @@
+﻿@model Erweiterungsfaktor.Models.Netzbetreiber 
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Netzbetreiber</h2>
+<h4>Details</h4>
+<hr />
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rechtsform)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rechtsform)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StrasseHausNr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StrasseHausNr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PLZOrt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PLZOrt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VereinfachtesVerfahren)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VereinfachtesVerfahren)
+        </dd>
+    </dl>
+</div>
+<hr />
+<p>
+    @if (ViewBag.returnURL == null)
+    {
+        @Html.ActionLink("Zurück", "Index")
+    }
+    else
+    {
+        <a href="@ViewBag.returnURL">Zurück</a>
+    }
+</p>

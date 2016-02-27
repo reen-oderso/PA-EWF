@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Bundesnetzagentur Erweiterungsfaktor-Anträge</h1>
+    <p class="lead">Willkommen bei der Web-Beantragung eines Erweiterungsfaktors</p>
+    <p><a href="http://www.bundesnetzagentur.de/cln_1412/DE/Sachgebiete/ElektrizitaetundGas/Unternehmen_Institutionen/Netzentgelte/Gas/Erloesobergrenzen/erloesobergrenzen-node.html" 
+          class="btn btn-primary btn-lg">Weitere Informationen &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Admin-Panel</h2>
+        <p>
+            Um zum Admin-Panel zu gelangen, können Sie folgenden Link folgen. Der eingerichtete Standard-Administrator 
+            hat den Login "webadmin" und das Passwort "webadmin".
+        </p>
+        <p>@Html.ActionLink("Zum Admin-Panel >>","Index","Admin",null, new { @class = "btn btn-default" })</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Netzbetreiber</h2>
+        <p>
+            Zu Testzwecken wurden zwei Test-Netzbetreiber mit den Betriebsnummern 12009998 und 12009999 angelegt. 
+            Neue Netzbetreiber bekommen nach Registrierung bei der Bundesnetzagentur eine Betriebsnummer zugewiesen.
+        </p>
+        <p><a class="btn btn-default" href="http://www.bundesnetzagentur.de/cln_1432/DE/Sachgebiete/ElektrizitaetundGas/Unternehmen_Institutionen/DatenaustauschundMonitoring/UnternehmensStammdaten/unternehmensstammdaten-node.html#doc266286bodyText2">Weitere Informationen >></a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Browser-Unterstützung</h2>
+        <p>
+            Die Anwendung enthält teilweise HTML5-Elemente, die vom Internet Explorer nicht unterstützt werden. 
+            Bitte verwenden Sie einen aktuellen Browser wie Mozilla Firefox, Google Chrome, Microsoft Edge, Opera 
+            oder ähnliches. Die Anwendung wurde mit Google Chrome 48 und Mozilla Firefox 43 getestet.
+        </p>
+        <p><a class="btn btn-default" href="https://html5test.com/">HTML 5 Test >></a></p>
+    </div>
+</div>

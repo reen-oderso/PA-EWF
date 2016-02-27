@@ -1,0 +1,110 @@
+﻿@model Erweiterungsfaktor.Models.ApplicationUser
+@{
+    ViewBag.Title = "Details";
+}
+<h2>Nutzer</h2>
+<h4>Details</h4>
+<hr />
+<div>
+    
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailConfirmed)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EmailConfirmed)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LockoutEndDateUtc)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LockoutEnabled)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LockoutEnabled)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AccessFailedCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AccessFailedCount)
+        </dd>
+    </dl>
+    @Html.ActionLink("Bearbeiten", "Edit", new { id = Model.Id })
+</div>
+<div>
+    <h4>Verknüpfte Netzbetreiber</h4>
+    @Html.ActionLink("Neue Verknüpfung", "CreateRelationship", new { id = Model.Id, returnURL = Request.Url.AbsoluteUri })
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NetzbetreiberRelationships.First().BNR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NetzbetreiberRelationships.First().Netzbetreiber.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NetzbetreiberRelationships.First().Confirmed)
+            </th>
+            <th>
+            </th>
+        </tr>
+        @foreach (var item in Model.NetzbetreiberRelationships)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.BNR)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Netzbetreiber.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Confirmed)
+                </td>
+                <td>
+                    @Html.ActionLink("Netzbetreiber-Details", "Details", new { controller = "Netzbetreiber", id = item.BNR, returnURL = Request.Url.AbsoluteUri }) |
+                    @if (item.Confirmed == true)
+                    {
+                        @Html.ActionLink("Widerrufen", "ChangeRelationship", "Netzbetreiber", new { id = item.Id, bnr = item.Netzbetreiber.BNR, returnURL = Request.Url.AbsoluteUri }, null)
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Bestätigen", "ChangeRelationship", "Netzbetreiber", new { id = item.Id, bnr = item.Netzbetreiber.BNR, returnURL = Request.Url.AbsoluteUri }, null)
+                    } |
+                    @Html.ActionLink("Beziehung löschen", "DeleteRelationship", new { id = item.User.Id, bnr = item.BNR, returnURL = Request.Url.AbsoluteUri })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<p>
+    @if (ViewBag.returnURL == null)
+    {
+        @Html.ActionLink("Zurück", "Index")
+    }
+    else
+    {
+        <a href="@ViewBag.returnURL">Zurück</a>
+    }
+</p>

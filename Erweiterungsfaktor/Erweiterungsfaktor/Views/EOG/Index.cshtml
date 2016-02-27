@@ -1,0 +1,90 @@
+﻿@model EOGViewModel 
+@using Erweiterungsfaktor.Models
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Erlösobergrenzen</h2>
+<hr />
+<h3>@String.Concat(Model.RegPNumber, ". Regulierungsperiode")</h3>
+<p>vom @Html.DisplayFor(m=> Model.RegPStart) bis @Html.DisplayFor(m=> Model.RegPEnd)</p>
+<p>@if (Model.RegPNumber > 1)
+{
+    @Html.ActionLink("<< ", "Index", new { id = Model.RegPNumber - 1 });
+}
+@if (Model.RegPNumber < Model.RegPMax)
+{
+    @Html.ActionLink(" >>", "Index", new { id = Model.RegPNumber + 1 })
+}
+</p>
+@foreach (Netzbetreiber nb in Model.Netzbetreiber)
+{
+    <h3>@String.Concat(nb.Name," ",nb.Rechtsform)</h3>
+    foreach (Netz n in nb.Netze)
+    {
+        <h4>@String.Concat("Netznummer ",n.NetzNr, " - ",n.NetzName)</h4>
+        <div class="container">
+            <table class="table table-hover table-responsive">
+                <tr>
+                    <th class="col-md-1 text-left">
+                        @Html.DisplayNameFor(model => n.EOGs.FirstOrDefault().StartDate)
+                    </th>
+                    <th class="col-md-2 text-left">
+                        @Html.DisplayNameFor(model => n.EOGs.FirstOrDefault().KAdnbt)
+                    </th>
+                    <th class="col-md-2 text-left">
+                        @Html.DisplayNameFor(model => n.EOGs.FirstOrDefault().KAvnbt)
+                    </th>
+                    <th class="col-md-2 text-left">
+                        @Html.DisplayNameFor(model => n.EOGs.FirstOrDefault().KAbt)
+                    </th>
+                    <th class="col-md-1 text-left">
+                        @Html.DisplayNameFor(model => n.EOGs.FirstOrDefault().EFt)
+                    </th>
+                    <th class="col-md-2 text-left">
+                        @Html.DisplayNameFor(model => n.EOGs.FirstOrDefault().EOGSumme)
+                    </th>
+                    <th class="col-md-2 text-left">
+                        EWF-Funktionen
+                    </th>
+                </tr>
+                @foreach (EOG eog in n.EOGs)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => eog.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => eog.KAdnbt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => eog.KAvnbt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => eog.KAbt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => eog.EFt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => eog.EOGSumme)
+                        </td>
+                        <td>
+                            @if (eog.EFt == 1)
+                        {
+                                @Html.ActionLink("Antrag stellen", "CreateEWF", new { EOGId = eog.EOGId, NetzId = eog.NetzId })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Antrag ändern", "EditEWF", new { EOGId = eog.EOGId, NetzId = eog.NetzId })
+                                <br />
+                                @Html.ActionLink("Antrag löschen", "DeleteEWF", new { EOGId = eog.EOGId, NetzId = eog.NetzId })
+                            }
+                        </td>
+
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+}

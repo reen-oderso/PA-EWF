@@ -1,0 +1,66 @@
+﻿@model Erweiterungsfaktor.Models.UserNetzbetreiberRelationship
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Verknüpfung</h2>
+<h4>Löschen</h4>
+<hr />
+<h3>Sind Sie sicher, dass sie die Verknüpfung zu folgenden Netzbetreiber löschen möchten?</h3>
+<div>
+    
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BNR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BNR)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Netzbetreiber.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Netzbetreiber.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Netzbetreiber.Rechtsform)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Netzbetreiber.Rechtsform)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Confirmed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Confirmed)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Löschen" class="btn btn-danger" />
+        </div>
+    }
+    <hr />
+    <div>
+            @if (ViewBag.returnURL == null)
+            {
+                @Html.ActionLink("Zurück", "Index")
+            }
+            else
+            {
+                <a href="@ViewBag.returnURL">Zurück</a>
+            }
+    </div>
+</div>

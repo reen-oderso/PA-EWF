@@ -1,0 +1,25 @@
+﻿@model Erweiterungsfaktor.Models.EOG
+
+@{
+    ViewBag.Title = "Delete";
+}
+<h2>Erweiterungsfaktor</h2>
+<h4>Antrag löschen</h4>
+<hr />
+
+<h3>Sind Sie sicher, dass Sie den Antrag auf Anpassung der Erlösobergrenze des Jahres @Html.DisplayFor(m => Model.StartDate) zurückziehen möchten?</h3>
+<div>
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => Model.NetzId)
+        @Html.HiddenFor(model => Model.EOGId)
+        <div class="form-actions no-color">
+            <input type="submit" value="Antrag zurückziehen" class="btn btn-danger" />
+           
+        </div>
+    }
+</div>
+<hr />
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

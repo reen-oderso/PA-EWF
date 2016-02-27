@@ -1,0 +1,145 @@
+﻿@model EWFViewModel
+@using Erweiterungsfaktor.Models
+
+<h2>Erweiterungsfaktor</h2>
+<h4>@ViewBag.Title</h4>
+<hr />
+
+@using (Html.BeginForm("ConfirmEWF","EOG")) 
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => Model.NetzId )
+    @Html.HiddenFor(model => Model.EOGId)
+    @Html.HiddenFor(m => Model.VersorgteFlaechet)
+    @Html.HiddenFor(model => Model.AnzahlAusspeisepunktet)
+    @Html.HiddenFor(model => Model.Jahreshoechstlastt)
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <h4>Parameter der Versorgungsaufgabe</h4>
+        <div class="container ">
+            <table class="table table-responsive table-hover ">
+                <tr>
+                    <th class="col-md-1">              
+                    </th>
+                    <th class="col-md-1  text-right">
+                        Basisjahr
+                    </th>
+                    <th class="col-md-1  text-right">
+                        Antragszeitpunkt
+                    </th>
+                </tr>
+                <tr>
+                    <td class="">@Html.DisplayNameFor(model => Model.VersorgteFlaeche0)</td>
+                    <td class="text-right ">@Html.DisplayFor(m => Model.VersorgteFlaeche0)</td>
+                    <td class="text-right ">@Html.DisplayFor(m => Model.VersorgteFlaechet)</td>
+                </tr>
+                <tr>
+                    <td class="">@Html.DisplayNameFor(model => Model.AnzahlAusspeisepunkte0)</td>
+                    <td class="text-right">@Html.DisplayFor(model => Model.AnzahlAusspeisepunkte0)</td>
+                    <td class="text-right">@Html.DisplayFor(model => Model.AnzahlAusspeisepunktet)</td>
+                </tr>
+                <tr>
+                    <td class="">@Html.DisplayNameFor(model => Model.Jahreshoechstlast0)</td>
+                    <td class="text-right">@Html.DisplayFor(model => Model.Jahreshoechstlast0)</td>
+                    <td class="text-right">@Html.DisplayFor(model => Model.Jahreshoechstlastt)</td>
+                </tr>
+            </table>
+        </div>
+        <h4>Gewichtung der Netzebenen</h4>
+        <div class="container ">
+            <table class="table table-responsive table-hover ">
+                <tr>
+                    <th class="col-md-1">Ebene</th>
+                    <th class="col-md-1text-right">Restwerte</th>
+                    <th class="col-md-1text-right">Gewicht</th>
+                </tr>
+                <tr>
+                    <td class="">Netzanlagen</td>
+                    <td class="text-right">@Html.DisplayFor(model => Model.RestwertNetzanlagen)</td>
+                    <td class="text-right">@Html.DisplayFor(model => Model.GewichtungNetzanlagen)</td>
+                </tr>
+                <tr>
+                    <td class="">Regelanlagen</td>
+                    <td class="text-right">@Html.DisplayFor(model => Model.RestwertRegelanlagen)</td>
+                    <td class="text-right">@Html.DisplayFor(model => Model.GewichtungRegelanlagen)</td>
+                </tr>
+            </table>
+        </div>
+        <h4>Erweiterungsfaktor</h4>
+        <div class="container ">
+            <table class="table table-hover table-responsive ">
+                <tr>
+                    <th class="col-md-1">@Html.LabelFor(model => model.EWFNetzanlagen)</th>
+                    <th class="col-md-1">@Html.LabelFor(model => model.EWFRegelanlagen)</th>
+                    <th class="col-md-1">@Html.LabelFor(model => model.EWFGesamt)</th>
+                </tr>
+                <tr>
+                    <td class="text-center ">@Html.DisplayFor(model => model.EWFNetzanlagen)</td>
+                    <td class="text-center ">@Html.DisplayFor(model => model.EWFRegelanlagen)</td>
+                    <td class="text-center ">@Html.DisplayFor(model => model.EWFGesamt)</td>
+                </tr>
+            </table>
+        </div>
+        <h4>Erlösobergrenze unter Berücksichtigung ihrer Angaben</h4>
+        <div class="container ">
+            <table class="table table-hover table-responsive">
+                <tr>
+                    <th class="col-md-1 text-left">
+                        @Html.DisplayNameFor(model => Model.EOGs.FirstOrDefault().StartDate)
+                    </th>
+                    <th class="col-md-2 text-left">
+                        @Html.DisplayNameFor(model => Model.EOGs.FirstOrDefault().KAdnbt)
+                    </th>
+                    <th class="col-md-2 text-left">
+                        @Html.DisplayNameFor(model => Model.EOGs.FirstOrDefault().KAvnbt)
+                    </th>
+                    <th class="col-md-2 text-left">
+                        @Html.DisplayNameFor(model => Model.EOGs.FirstOrDefault().KAbt)
+                    </th>
+                    <th class="col-md-1 text-left">
+                        @Html.DisplayNameFor(model => Model.EOGs.FirstOrDefault().EFt)
+                    </th>
+                    <th class="col-md-2 text-left">
+                        @Html.DisplayNameFor(model => Model.EOGs.FirstOrDefault().EOGSumme)
+                    </th>
+                </tr>
+
+                @foreach (EOG eog in Model.EOGs)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => eog.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => eog.KAdnbt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => eog.KAvnbt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => eog.KAbt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => eog.EFt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => eog.EOGSumme)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="form-group">
+                <p>Wollen Sie den Antrag mit diesen Daten verbindlich an die Bundesnetzagentur übermitteln?</p>
+                <input type="submit" value="Antrag stellen" class="btn btn-default" />   
+        </div>
+    </div>
+}
+<hr />
+<div>
+    @Html.ActionLink("Zurück", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

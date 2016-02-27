@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Users</h2>
+        <p>Hier können Sie die registrierten Nutzer admininstrieren</p>
+        <p>@Html.ActionLink("User", "", new { area = "admin", controller = "User" }, new { @class="btn btn-default"})</p>
+    </div>
+    <div class="col-md-6">
+        <h2>Netzbetreiber</h2>
+        <p>Hier können Sie die Netzbetreiber administrieren</p>
+        <p>@Html.ActionLink("Netzbetreiber", "", new {area="admin", controller="Netzbetreiber" }, new { @class="btn btn-default"})</p>
+    </div>
+</div>
